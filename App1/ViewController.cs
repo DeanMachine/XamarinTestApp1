@@ -10,7 +10,7 @@ namespace App1
         {
         }
 
-        public override void ViewDidLoad ()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad ();
 
