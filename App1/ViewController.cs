@@ -1,16 +1,20 @@
 ﻿using Foundation;
 using System;
+using System.IO;
+using System.Threading.Tasks;
 using UIKit;
+using Xamarin.Forms;
 
 namespace App1
 {
     public partial class ViewController : UIViewController
     {
+
         public ViewController (IntPtr handle) : base (handle)
         {
         }
 
-        public override void ViewDidLoad()
+        public async override void ViewDidLoad()
         {
             base.ViewDidLoad ();
 
@@ -50,6 +54,64 @@ namespace App1
                     PresentViewController(alert, true, null);
                 }
             };
+
+            signatureView.Layer.BorderColor = UIColor.FromRGBA(184, 134, 11, 255).CGColor;
+            signatureView.Layer.BorderWidth = 1f;
+
+            signatureView.StrokeCompleted += (sender, e) => UpdateControls();
+            signatureView.Cleared += (sender, e) => UpdateControls();
+
+            UpdateControls();
+        }
+
+        async partial void SaveSigButton_TouchUpInside(UIButton sender)
+        {
+            //var points = signatureView.Points;
+
+            //var image = signatureView.GetImage();
+            
+            //image.SaveToPhotosAlbum((i, e) =>
+            //{
+            //    var test = string.Empty;
+            //});
+
+            using (var image2 = await signatureView.GetImageStreamAsync(Xamarin.Controls.SignatureImageFormat.Png))
+            using (var data = NSData.FromStream(image2))
+            {
+                //image = UIImage.LoadFromData(data);
+
+                //Image img = System.Drawing.Bitmap.FromStream(image2);
+
+                //img.Save(System.IO.Path.GetTempPath() + "\\myImage.Jpeg", ImageFormat.Jpeg);
+                var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                var filename = Path.Combine(documents, "_image.png");
+
+                try
+                {
+
+                    data.Save(filename, false);
+
+                    var sigAlertController = UIAlertController.Create("Success", "Signature Saved Successfully", UIAlertControllerStyle.Alert);
+
+                    sigAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+                    PresentViewController(sigAlertController, true, null);
+
+                    //DisplayAlert("Alert", "Signature Saved Successfully", "OK");
+                }
+                catch (Exception ex)
+                {
+                    //DisplayAlert("Alert", "Signature error", "OK");
+
+                }
+
+            }
+        }
+
+        private void UpdateControls()
+        {
+
         }
 
         public override void DidReceiveMemoryWarning ()

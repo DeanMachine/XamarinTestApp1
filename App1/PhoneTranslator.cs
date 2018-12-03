@@ -10,7 +10,10 @@ namespace App1
 {
     public static class PhoneTranslator
     {
-        public static string ToNumber(string raw)
+
+
+
+    public static string ToNumber(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw))
             {

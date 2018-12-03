@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Visual Studio from the outlets and
 // actions declared in your storyboard file.
@@ -24,11 +24,23 @@ namespace App1
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton saveSigButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        Xamarin.Controls.SignaturePadView signatureView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton TranslateButton { get; set; }
 
         [Action ("CallButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void CallButton_TouchUpInside (UIKit.UIButton sender);
+
+        [Action ("SaveSigButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void SaveSigButton_TouchUpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -40,6 +52,16 @@ namespace App1
             if (PhoneNumberText != null) {
                 PhoneNumberText.Dispose ();
                 PhoneNumberText = null;
+            }
+
+            if (saveSigButton != null) {
+                saveSigButton.Dispose ();
+                saveSigButton = null;
+            }
+
+            if (signatureView != null) {
+                signatureView.Dispose ();
+                signatureView = null;
             }
 
             if (TranslateButton != null) {
